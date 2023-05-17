@@ -1,0 +1,75 @@
+﻿<Window x:Class="TareaTopicos_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TareaTopicos_"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="400" Background="gold" Name="jugar">
+    <Window.DataContext>
+        <local:Juego>
+            </local:Juego>
+    </Window.DataContext>
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="20"></Setter>
+                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                <Setter Property="Padding" Value="30"></Setter>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="Width" Value="200"></Setter>
+                <Setter Property="Height" Value="40"></Setter>
+                <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
+                <Setter Property="FontSize" Value="20"></Setter>
+                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=jugar,Path=DataContext.JuegoIniciado}" Value="true">
+
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="TextAlignment" Value="Center"></Setter>
+            </Style>
+        </Grid.Resources>
+     
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Foreground="white">Adivina el numero</Label>
+        <TextBlock Margin="70" Foreground="white" FontSize="14">Ingresa tu numero elegido</TextBlock>
+        
+
+            <UniformGrid Grid.Column="1" >
+            <TextBox Text="{Binding final}" Grid.Column="1" Margin="100,140,100,0" VerticalAlignment="Top" ></TextBox>
+        </UniformGrid>
+        <Button Grid.Column="1" Height="30" Width="200" Margin="0,50,0,0">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="white"></Setter>
+                    <Setter Property="Foreground" Value="gold"></Setter>
+                    <Setter Property="Content" Value="Empezar"></Setter>
+                    <Setter Property="Command" Value="{Binding IniciarComando}"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding JuegoIniciado }" Value="true">
+                            <Setter Property="Content" Value="Jugar"></Setter>
+                            <Setter Property="Command" Value="{Binding JugarComando }"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <UniformGrid Height="150" Width="100" Grid.Column="1" VerticalAlignment="Bottom">
+            <StackPanel Height="100" Width="100">
+                <TextBlock FontSize="15" Foreground="white">Oportunidades</TextBlock>
+                <TextBlock Text="{Binding Oportunidades}" FontSize="20"></TextBlock>
+            </StackPanel>
+        </UniformGrid>
+        <UniformGrid VerticalAlignment="Bottom" Grid.Column="1">
+            <TextBlock Text="{Binding Resultado}" Padding="10" FontSize="20" Foreground="white"></TextBlock>
+        </UniformGrid>
+    </Grid>
+</Window>
